@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Message</title>
+
+        <!-- include libraries(bootstrap) -->
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+        <!-- include summernote css -->
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h3>
+                    <a href="/messages">
+                        Messages List
+                    </a>
+                </h3>
+            </div>
+            <div class="row">
+                <h1>
+                    Add Message
+                </h1>
+            </div>
+            <form action="/messages/save" method="post">
+                <div class="row">
+                    <textarea name="text" id="text">Hello Summernote</textarea>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <footer>
+
+        <!-- include libraries(jQuery, bootstrap) -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+        <!-- include summernote js -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#text').summernote();
+            });
+        </script>
+    </footer>
+</html>

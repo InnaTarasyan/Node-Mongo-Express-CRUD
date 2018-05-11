@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <title>All Messages</title>
+
+        <!-- include libraries(bootstrap) -->
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+        <!--<link rel='stylesheet' href='/stylesheets/table.css' />-->
+
+        <style>
+            .table_pagination{
+                padding-left: 45%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h3>
+                    <a href="/messages/create">
+                        Create Message
+                    </a>
+                </h3>
+            </div>
+            <div class="row">
+                <h1>
+                    Messages List
+                </h1>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Message</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                <% if(messages) { %>
+                                    <% for(let i=0; i < messages.length; i++) { %>
+                                        <tr>
+                                            <td>
+                                                <%- messages[i].text%>
+                                                <br/>
+                                                <% let date = new Date(messages[i].updated_at); %>
+                                                (<%- date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
+                                                + ', at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(); %>)
+                                            </td>
+                                            <td>
+                                                <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                                    <form action="/messages/edit/<%= messages[i]._id%>" >
+                                                        <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </button>
+                                                    </form>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                                    <form action="/messages/delete/<%= messages[i]._id%>" method="post">
+                                                        <button class="btn btn-danger btn-xs" data-title="Delete" >
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     <% if (pages > 0) { %>
+        <ul class="pagination text-center table_pagination">
+            <% if (current == 1) { %>
+                <li class="disabled">
+                    <a>First</a>
+                </li>
+                <% } else { %>
+                <li>
+                    <a href="/messages/pages/1">
+                        First
+                    </a>
+                </li>
+            <% } %>
+            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+            <% if (i !== 1) { %>
+                <li class="disabled">
+                    <a>...</a>
+                </li>
+            <% } %>
+            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                    <li class="active">
+                        <a>
+                            <%= i %>
+                        </a>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a href="/messages/pages/<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                    <li class="disabled">
+                        <a>...</a>
+                    </li>
+                <% } %>
+            <% } %>
+            <% if (current == pages) { %>
+                <li class="disabled">
+                    <a>Last</a>
+                </li>
+            <% } else { %>
+                <li>
+                    <a href="/messages/pages/<%= pages %>">Last</a>
+                </li>
+            <% } %>
+         </ul>
+      <% } %>
+
+
+    </body>
+    <footer>
+
+        <!-- include libraries(jQuery, bootstrap) -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+        <!-- include summernote js -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+    </footer>
+</html>
